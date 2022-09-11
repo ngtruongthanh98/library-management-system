@@ -11,7 +11,12 @@
 
       <div class="row">
         <div class="col-sm-12">
-          <p>Game Library 🎮</p>
+          <h1
+            class="text-center bg-primary text-white"
+            style="border-radius: 10px"
+          >
+            Game Library 🎮
+          </h1>
           <hr />
           <br />
 
@@ -37,10 +42,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Identity V</td>
-                <td>Honor</td>
-                <td>Yes</td>
+              <tr v-for="(game, index) in games" :key="index">
+                <td>{{ game.title }}</td>
+                <td>{{ game.genre }}</td>
+                <td>
+                  <span v-if="game.played">Yes</span>
+                  <span v-else>No</span>
+                </td>
                 <td>
                   <div class="btn-group" role="group">
                     <button type="button" class="btn btn-info btn-sm">
@@ -54,6 +62,13 @@
               </tr>
             </tbody>
           </table>
+
+          <footer
+            class="bg-primary text-white text-center"
+            style="border-radius: 10px"
+          >
+            Copyright &copy; All Rights Reserved 2022.
+          </footer>
         </div>
       </div>
     </div>
@@ -61,7 +76,32 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      games: [],
+    };
+  },
+
+  methods: {
+    getGames() {
+      const path = "http://localhost:5000/games";
+      axios
+        .get(path)
+        .then((res) => {
+          this.games = res.data.games;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  created() {
+    this.getGames();
+  },
+};
 </script>
 
 <style></style>
