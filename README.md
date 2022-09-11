@@ -1,2 +1,3 @@
 # library-management-system
-Data Engieering Assignment (VueJS + NodeJS + DynamoDB)
+
+Data Engieering Assignment (VueJS + Flask + DynamoDB)
